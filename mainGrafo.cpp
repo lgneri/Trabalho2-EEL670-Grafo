@@ -1,9 +1,50 @@
 #include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+#include <sstream>
 #include "Grafo.h"
 
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[])
+{
+    vector<vector<string>> conteudo;
+    vector<string> row;
+    string linha, palavra;
+
+
+    fstream file (argv[0], ios::in)
+    if (file.is_open())
+    {
+        while(getline(file, linha))
+        {
+            row.clear();
+            stringstream str(linha);
+
+            while(getline(str, palavra, ','))
+            {
+                row.push_back(palavra);
+                conteudo.push_back(row);
+            }
+        }
+    }
+    else
+        cout << "Nao foi possivel abrir o arquivo.\n"
+
+
+    for(int i = 0; i < conteudo.size(); i++)
+        for(int j = 0; j < 3; j++)
+            if (j != 2)
+                Vertice conteudo[i][j](conteudo[i][j]);
+            else
+                Aresta conteudo[i][j - 2] conteudo[i][j - 1](&conteudo[i][j - 2], &conteudo[i][j - 1], conteudo[i][j]);
+
+
+
+
+
+/*int main() {
     Vertice A("A");
     Vertice B("1");
     Vertice C("2");
@@ -45,12 +86,14 @@ int main() {
     Grafo.insereAresta(&CF);
     Grafo.insereAresta(&DF);
 
-    //cout << "\nDistancia = " << Grafo.dijkstra(&C, &H);
-    //Grafo.imprimeCaminho();
+    cout << "\nDistancia = " << Grafo.dijkstra(&C, &H);
+    Grafo.imprimeCaminho();
 
-    //Grafo.printVerticesEnlaces();
+    Grafo.printVerticesEnlaces();
     Grafo.printVertices();
     Grafo.printArestas();
-    //Grafo.ehConectado(&A);
+    if(Grafo.ehConectado(&A))
+        cout << "true";
+    Grafo.maiorCentralidadeDeGrau();
 
-}
+}*/
