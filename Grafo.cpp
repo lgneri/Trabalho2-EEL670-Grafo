@@ -118,10 +118,6 @@ bool Grafo::ehConectado(Vertice* origem) {
     constroiAdjacentes();
     caminhaParaNaoVisitado(origem);
 
-    /*for (auto v: visitados)
-        cout << visitados[v.first] << endl;
-
-    cout << verticesUnicos.size() << endl;*/
     bool conectado = true;
     for (Vertice* v: verticesUnicos)
         if (!visitados[v])
@@ -176,4 +172,27 @@ void Grafo::printArestas() {
             cout << ", ";
     }
     cout << ")\n";
+}
+
+void Grafo::maiorCentralidadeDeGrau() {
+    getVertices();
+    Vertice* maiorVertice;
+    float pesoMaiorVertice = 0;
+
+    for(Vertice* v: verticesUnicos) {
+        float somaPesos = 0;
+
+        for (Aresta* a: arestas)
+            if (a->possuiVertice(v))
+                somaPesos += a->getPeso();
+
+        if (somaPesos > pesoMaiorVertice) {
+            pesoMaiorVertice = somaPesos;
+            maiorVertice = v;
+        }
+    }
+
+    cout << "\nVertice com maior centralidade de grau: "
+         << maiorVertice->getRotulo() << "\nGrau: "
+         << pesoMaiorVertice << endl;
 }

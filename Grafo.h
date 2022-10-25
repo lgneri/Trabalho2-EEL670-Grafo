@@ -17,6 +17,7 @@ class Grafo {
         void printVerticesEnlaces();
         void printVertices();
         void printArestas();
+        void maiorCentralidadeDeGrau();
     private:
         vector <Aresta*> arestas;
         set <Vertice*> verticesUnicos;
