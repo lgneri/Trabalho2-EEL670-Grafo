@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     string linha, palavra;
 
 
-    fstream file (argv[0], ios::in)
+    fstream file (argv[0], ios::in);
     if (file.is_open())
     {
         while(getline(file, linha))
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
         }
     }
     else
-        cout << "Nao foi possivel abrir o arquivo.\n"
+        cout << "Nao foi possivel abrir o arquivo.\n";
 
 
     for(int i = 0; i < conteudo.size(); i++)
