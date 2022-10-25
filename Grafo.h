@@ -28,6 +28,7 @@ class Grafo {
         void inicializaVisitados();
         void constroiAdjacentes();
         void inicializaVertices();
+        void inicializaVerticesssss();
 };
 
 #endif
