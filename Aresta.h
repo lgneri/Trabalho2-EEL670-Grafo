@@ -1,3 +1,6 @@
+/** Arquivo Aresta.h. Segundo trabalho avaliado EEL670 2022.2
+*   Aluno: Luis Guilherme Neri Ferreira */
+
 #ifndef ARESTA_H
 #define ARESTA_H
 

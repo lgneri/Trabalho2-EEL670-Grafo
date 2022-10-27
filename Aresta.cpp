@@ -1,3 +1,6 @@
+/** Arquivo Aresta.cpp. Segundo trabalho avaliado EEL670 2022.2
+*   Aluno: Luis Guilherme Neri Ferreira */
+
 #include <string>
 #include "Aresta.h"
 #include "Vertice.h"

@@ -1,3 +1,6 @@
+/** Arquivo Vertice.h. Segundo trabalho avaliado EEL670 2022.2
+*   Aluno: Luis Guilherme Neri Ferreira */
+
 #ifndef VERTICE_H
 #define VERTICE_H
 

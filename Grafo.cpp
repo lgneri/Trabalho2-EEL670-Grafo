@@ -1,3 +1,6 @@
+/** Arquivo Grafo.cpp. Segundo trabalho avaliado EEL670 2022.2
+*   Aluno: Luis Guilherme Neri Ferreira */
+
 #include <iostream>
 #include <map>
 #include <set>

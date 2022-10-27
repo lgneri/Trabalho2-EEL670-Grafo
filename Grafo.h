@@ -1,3 +1,6 @@
+/** Arquivo Grafo.h. Segundo trabalho avaliado EEL670 2022.2
+*   Aluno: Luis Guilherme Neri Ferreira */
+
 #ifndef GRAFO_H
 #define GRAFO_H
 
@@ -24,11 +27,10 @@ class Grafo {
         vector<Vertice*> menorCaminho;
         map <Vertice*, bool> visitados;
         map <Vertice*, set <Vertice*>> adjacentes;
-        Vertice* caminhaParaNaoVisitado (Vertice*);
+        Vertice* caminhaParaNaoVisitado(Vertice*);
         void inicializaVisitados();
         void constroiAdjacentes();
         void inicializaVertices();
-        void inicializaVerticesssss();
 };
 
 #endif
