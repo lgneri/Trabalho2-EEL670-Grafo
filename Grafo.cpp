@@ -113,10 +113,10 @@ Vertice* Grafo::caminhaParaNaoVisitado(Vertice* atual) {
     return atual;
 }
 
-bool Grafo::ehConectado(Vertice* origem) {
+bool Grafo::ehConectado() {
     inicializaVisitados();
     constroiAdjacentes();
-    caminhaParaNaoVisitado(origem);
+    caminhaParaNaoVisitado(*verticesUnicos.begin());
 
     bool conectado = true;
     for (Vertice* v: verticesUnicos)

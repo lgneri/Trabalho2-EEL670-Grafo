@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <map>
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -10,90 +11,121 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     vector<vector<string>> conteudo;
-    vector<string> row;
-    string linha, palavra;
+    vector<string> linhas;
+    string linha, dado;
 
 
-    fstream file (argv[0], ios::in);
+    fstream file (argv[1], ios::in);
     if (file.is_open())
     {
         while(getline(file, linha))
         {
-            row.clear();
+            linhas.clear();
             stringstream str(linha);
 
-            while(getline(str, palavra, ','))
+            while(getline(str, dado, ','))
             {
-                row.push_back(palavra);
-                conteudo.push_back(row);
+                linhas.push_back(dado);
             }
+
+            conteudo.push_back(linhas);
         }
     }
     else
         cout << "Nao foi possivel abrir o arquivo.\n";
 
 
-    for(int i = 0; i < conteudo.size(); i++)
-        for(int j = 0; j < 3; j++)
-            if (j != 2)
-                Vertice conteudo[i][j](conteudo[i][j]);
-            else
-                Aresta conteudo[i][j - 2] conteudo[i][j - 1](&conteudo[i][j - 2], &conteudo[i][j - 1], conteudo[i][j]);
-
-
-
-
-
-/*int main() {
-    Vertice A("A");
-    Vertice B("1");
-    Vertice C("2");
-    Vertice D("3");
-    Vertice E("4");
-    Vertice F("5");
-    Vertice G("6");
-    Vertice H("7");
-    Vertice I("8");
-
-    Aresta AB(&A, &B, 4);
-    Aresta BC(&B, &C, 8);
-    Aresta CD(&C, &D, 7);
-    Aresta DE(&D, &E, 9);
-    Aresta EF(&E, &F, 10);
-    Aresta FG(&F, &G, 2);
-    Aresta GH(&G, &H, 1);
-    Aresta GI(&G, &I, 6);
-    Aresta HA(&H, &A, 8);
-    Aresta BH(&B, &H, 11);
-    Aresta HI(&H, &I, 7);
-    Aresta CI(&C, &I, 2);
-    Aresta CF(&C, &F, 4);
-    Aresta DF(&D, &F, 14);
-
     Grafo Grafo;
-    Grafo.insereAresta(&AB);
-    Grafo.insereAresta(&BC);
-    Grafo.insereAresta(&CD);
-    Grafo.insereAresta(&DE);
-    Grafo.insereAresta(&EF);
-    Grafo.insereAresta(&FG);
-    Grafo.insereAresta(&GH);
-    Grafo.insereAresta(&GI);
-    Grafo.insereAresta(&HA);
-    Grafo.insereAresta(&BH);
-    Grafo.insereAresta(&HI);
-    Grafo.insereAresta(&CI);
-    Grafo.insereAresta(&CF);
-    Grafo.insereAresta(&DF);
+    map <string, Vertice*> vertices;
 
-    cout << "\nDistancia = " << Grafo.dijkstra(&C, &H);
-    Grafo.imprimeCaminho();
+    for (unsigned i = 0; i < conteudo.size(); i++) {
+        string nomeVertice1 = conteudo[i][0];
+        string nomeVertice2 = conteudo[i][1];
+        float peso = stof(conteudo[i][2]);
 
-    Grafo.printVerticesEnlaces();
-    Grafo.printVertices();
-    Grafo.printArestas();
-    if(Grafo.ehConectado(&A))
-        cout << "true";
-    Grafo.maiorCentralidadeDeGrau();
+        if (vertices.find(nomeVertice1) == vertices.end())
+            vertices[nomeVertice1] = new Vertice(nomeVertice1);
 
-}*/
+        if (vertices.find(nomeVertice2) == vertices.end())
+            vertices[nomeVertice2] = new Vertice(nomeVertice2);
+
+        Grafo.insereAresta(new Aresta(vertices[nomeVertice1], vertices[nomeVertice2], peso));
+    }
+
+    while (true) {
+        cout << "\nEntre com o numero correspondente ao dado que deseja visualizar:"
+        << "\n1: Lista de vertices e o respectivo numero de enlaces."
+        << "\n2: Lista de todos os vertices e enlaces existentes no grafo."
+        << "\n3: Caminho de menor custo entre dois vertices escolhidos."
+        << "\n4: Se o grafo eh totalmente conectado ou nao."
+        << "\n5: Vertice com a maior centralidade de grau."
+        << endl;
+        int escolha;
+        cin >> escolha;
+
+        if (escolha == 1) {
+            cout << "\nLista de vertices e o respectivo numero de enlaces:\n";
+            Grafo.printVerticesEnlaces();
+            int escolha2;
+            cout << "\nDigite 0 para voltar ao menu ou qualquer coisa para sair: ";
+            cin >> escolha2;
+            if (escolha2 != 0)
+                break;
+        }
+
+        else if (escolha == 2) {
+            cout << "\nLista de todos os vertices e enlaces existentes no grafo:\n";
+            Grafo.printVertices();
+            Grafo.printArestas();
+            int escolha2;
+            cout << "\nDigite 0 para voltar ao menu ou qualquer coisa para sair: ";
+            cin >> escolha2;
+            if (escolha2 != 0)
+                break;
+        }
+
+        else if (escolha == 3) {
+            string origem, destino;
+            cout << "\nDigite o nome do vertice de origem: ";
+            cin >> origem;
+            cout << "Digite o nome do vertice de destino: ";
+            cin >> destino;
+            cout << "\nDistancia = " << Grafo.dijkstra(vertices[origem], vertices[destino]);
+            Grafo.imprimeCaminho();
+            int escolha2;
+            cout << "\nDigite 0 para voltar ao menu ou qualquer coisa para sair: ";
+            cin >> escolha2;
+            if (escolha2 != 0)
+                break;
+        }
+
+        else if (escolha == 4) {
+            if (Grafo.ehConectado())
+                cout << "\nTrue, o grafo eh totalmente conectado." << endl;
+            else
+                cout << "\nFalse, o grafo nao eh totalmente conectado." << endl;
+
+            int escolha2;
+            cout << "\nDigite 0 para voltar ao menu ou qualquer coisa para sair: ";
+            cin >> escolha2;
+            if (escolha2 != 0)
+                break;
+        }
+
+        else if (escolha == 5) {
+            Grafo.maiorCentralidadeDeGrau();
+            int escolha2;
+            cout << "\nDigite 0 para voltar ao menu ou qualquer coisa para sair: ";
+            cin >> escolha2;
+            if (escolha2 != 0)
+                break;
+        }
+
+        else {
+            cout << "\nOpcao invalida." << endl;
+            break;
+        }
+    }
+
+return 0;
+}

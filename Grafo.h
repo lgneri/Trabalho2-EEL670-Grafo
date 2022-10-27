@@ -13,7 +13,7 @@ class Grafo {
         set <Vertice*> getVertices();
         vector <Aresta*> getArestas();
         float dijkstra(Vertice*, Vertice*);
-        bool ehConectado(Vertice*);
+        bool ehConectado();
         void printVerticesEnlaces();
         void printVertices();
         void printArestas();
